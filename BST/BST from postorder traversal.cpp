@@ -1,0 +1,36 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+
+POST ORDER ->  LRN
+we are traversing the postorder array from right to left (i.e; in reverse direction)
+we are getting the roots from the end of the array all the time.
+
+class Solution {
+public:
+    TreeNode *buildBST(vector<int> preorder , int&index , int lowerBound , int upperBound){
+        if(index>=preorder.size())
+            return NULL;
+        if(preorder[index]<lowerBound || preorder[index]>upperBound)
+            return NULL;
+        
+        TreeNode* node = new TreeNode(preorder[index++]);
+        node->left = buildBST(preorder , index , lowerBound , node->val);
+        node->right = buildBST(preorder , index , node->val , upperBound);
+        
+        return node;
+    }
+    
+    TreeNode* bstFromPreorder(vector<int>& preorder) {
+        int index = 0;
+        return buildBST(preorder , index , dddddddINT_MIN , INT_MAX);
+    }
+};
